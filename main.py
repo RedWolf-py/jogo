@@ -1,77 +1,66 @@
 import turtle
-from random import randint
-
+import random
+from time import sleep
 
 janela = turtle.Screen()
-janela.setup(600, 500)
-janela.bgcolor('green')
+janela.setup(700, 500)
+janela.bgcolor('gray')
 janela.title('Corrida de Tartarugas !!!')
 
-def linha():
+def linha_chegada():
+    
+  xd = turtle.Turtle()
+  xd.shape('circle')
+  xd.color('red')
+  xd.hideturtle()
+  xd.pensize(4)
+  xd.penup()
+  xd.goto(320,-240)
+  xd.left(90)
+  xd.pendown()
+  xd.setposition(320,300)
 
-    xd = turtle.Turtle()
-    xd.hideturtle()
-    xd.shape('circle')
-    xd.color('red')
-    xd.pensize(4)
-    xd.penup()
-    xd.goto(280,-230)
-    xd.left(90)
-    xd.pendown()
-    xd.setposition(280,250)
+nomes = ["josycreide", "snoop", "snake", "python", "wolf"]
+cores = ["red", "blue", "yellow", "pink", "White"]
+posicoes = [(-300, 10), (-300, 100), (-300, 200), (-300, -100), (-300, -200)]
 
+corredores = dict()
+
+
+linha_chegada()
+
+for nome, cor,posicoes in zip(nomes, cores, posicoes):
+
+  corredores[nome] = turtle.Turtle()
+  corredores[nome].hideturtle()
+  corredores[nome].shape("turtle")
+  corredores[nome].penup()
+  corredores[nome].color(cor)
+  corredores[nome].setpos(posicoes)
+  corredores[nome].showturtle()
+  corredores[nome].right(360)
+  corredores[nome].write("Ola, Aposta em mim")
+    
+vencedor = ""
+
+while not vencedor:
+    for nome in nomes:
+        distancia = random.randint(1, 5)
+        corredores[nome].forward(distancia)
+        if corredores[nome].pos()[0] > 300:
+            vencedor = nome
+            break
+            print(f' {vencedor} Foi a Vencedor(a) !!!')
 
 dd = turtle.Turtle()
-dd.hideturtle()
 dd.shape('turtle')
-dd.color('yellow')
+dd.color('black')
 dd.penup()
-dd.goto(-250, -50)
-dd.showturtle()
-dd.pendown()
+sleep(2.0)
+mensagem = "A tartaruga vencedora foi = {}".format(vencedor)
+fonte = ("arial", 20)
 
-vc = turtle.Turtle()
-vc.hideturtle()
-vc.shape('turtle')
-vc.color('blue')
-vc.penup()
-vc.goto(-250, 50)
-vc.showturtle()
-vc.pendown()
+dd.write(mensagem, True, "center", fonte)
+dd.right(360)
 
-
-dv = turtle.Turtle()
-dv.hideturtle()
-dv.shape('turtle')
-dv.color('red')
-dv.penup()
-dv.goto(-250, 150)
-dv.showturtle()
-dv.pendown()
-
-
-
-ff = turtle.Turtle()
-ff.hideturtle()
-ff.shape('turtle')
-ff.color('cyan')
-ff.penup()
-ff.goto(-250, -150)
-ff.showturtle()
-ff.pendown()
-
-linha()
-
-while True:
-
-	if ff.xcor() >= 257 or vc.xcor() >= 257 or dv.xcor() >= 257 or dd.xcor() >= 257:
-
-		break
-
-	ff.fd(1*(randint(0, 5)))
-	vc.fd(1*(randint(0, 5)))
-	dv.fd(1*(randint(0, 5)))
-	dd.fd(1*(randint(0, 5)))
-
-print(vc.xcor(),ff.xcor(),dv.xcor(),dd.xcor())
-
+janela.mainloop()
